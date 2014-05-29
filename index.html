@@ -6,6 +6,7 @@
   <title>matsuo-ng-resource</title>
 
   <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="bower_components/highlightjs/styles/github.css" />
 	<link rel="stylesheet" href="main.css" />
 
 </head>
@@ -28,7 +29,7 @@
       <p>
         Simplest possible resource is created like this.
       </p>
-      <pre>restFactory("Person");</pre>
+      <pre><code>restFactory("Person");</code></pre>
       <p>
         This provides default set of methods for ajax calls.
       </p>
@@ -99,7 +100,7 @@
       <p>
         More complicated example changes default entityName (root of all urls for this resource), and adds new functions.
       </p>
-      <pre>restFactory('Login', {
+      <pre><code>restFactory('Login', {
   urlEntityName: 'login',
   additionalFunctions: {
     getUser: { url: "/user" },
@@ -108,7 +109,7 @@
       method: 'POST'
     }
   }
-});</pre>
+});</code></pre>
 
       <h4>Invocation examples</h4>
       <table class="table">
@@ -208,6 +209,8 @@
 
 	<script type="text/javascript" src="bower_components/angular/angular.min.js"></script>
 	<script type="text/javascript" src="bower_components/angular-resource/angular-resource.min.js"></script>
+  <script type="text/javascript" src="bower_components/highlightjs/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
 
 	<script type="text/javascript" src="ng-module.js"></script>
 	<!--<script type="text/javascript" src="ng-module.min.js"></script>-->
