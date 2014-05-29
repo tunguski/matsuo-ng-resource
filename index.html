@@ -14,9 +14,9 @@
   <header>
     <div class="jumbotron">
       <div class="container">
-        <h1>Simple AngularJs Routing</h1>
-        <p>Define once, route always</p>
-        <p><a class="btn btn-info btn-lg" href="https://github.com/tunguski/matsuo-ng-route">Github repository</a></p>
+        <h1>AngularJs Resources Improved</h1>
+        <p>Additional resource handling functions</p>
+        <p><a class="btn btn-info btn-lg" href="https://github.com/tunguski/matsuo-ng-resource">Github repository</a></p>
       </div>
     </div>
   </header>
@@ -24,48 +24,117 @@
 
   <div class="feature-section">
     <div class="container">
-      <h2>Simple generic routing</h2>
+      <h2>Simple as hell</h2>
       <p>
-        Module provides generic routing configuration. It works in applications that most of the time use one controller
-        for one page. In that situation it is normal to specify controller in html.
+        Simplest possible resource is created like this.
       </p>
-      <h3>Example</h3>
+      <pre>restFactory("Person");</pre>
       <p>
-        With configuration
-        <pre>angular.module('myApp', ['mtRoute'])
-  .factory('routeConfiguration', function() {
-    return {
-      rootPath: 'views',
-      extension: '.html'
+        This provides default set of methods for ajax calls.
+      </p>
+      <h4>Invocation examples</h4>
+      <table class="table">
+        <tr>
+          <th>Invocation</th>
+          <th>Method</th>
+          <th>Url</th>
+          <th>Request Body</th>
+        </tr>
+        <tr>
+          <td><code>Person.get({ idPerson: 1},</code>
+            <code>[successFn], [errorFn])</code></td>
+          <td><code>GET</code></td>
+          <td><code>/api/persons/1</code></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td><code>Person.query({ sex: 'male'},</code>
+            <code>[successFn], [errorFn])</code></td>
+          <td><code>GET</code></td>
+          <td><code>/api/persons</code></td>
+          <td><code>{ sex: 'male'}</code></td>
+        </tr>
+        <tr>
+          <td><code>Person.listByIds({ ids: [1,2,3,4,5]},</code>
+            <code>[successFn], [errorFn])</code></td>
+          <td><code>GET</code></td>
+          <td><code>/api/persons/listByIds</code>
+            <code>?ids=1&ids=2&ids=3&ids=4&ids=5</code></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td><code>person.$save([successFn], [errorFn])</code></td>
+          <td><code>POST</code></td>
+          <td><code>/api/persons</code></td>
+          <td><code>{ id: 1, firstName: 'John',</code>
+            <code>lastName: 'Doe' }</code></td>
+        </tr>
+        <tr>
+          <td><code>person.$update([successFn], [errorFn])</code></td>
+          <td><code>PUT</code></td>
+          <td><code>/api/persons</code></td>
+          <td><code>{ id: 1, firstName: 'John',</code>
+            <code>lastName: 'Doe' }</code></td>
+        </tr>
+      </table>
+      <h4>Methods</h4>
+      <table class="table">
+        <tr>
+          <td><code>Resource.get([parameters], [success], [error])</code></td>
+          <td>Returns single object of type that match parameters.</td>
+        </tr>
+        <tr>
+          <td><code>Resource.query(([parameters], [success], [error]))</code></td>
+          <td>Returns array of objects that match parameters.</td>
+        </tr>
+        <tr>
+          <td><code>instance.$save([parameters], postData, [success], [error])</code></td>
+          <td>Saves object, sending it's data by POST request.</td>
+        </tr>
+        <tr>
+          <td><code>instance.$update([parameters], postData, [success], [error])</code></td>
+          <td>Updates object by sending it's data by PUT request.</td>
+        </tr>
+      </table>
+      <p>
+        More complicated example changes default entityName (root of all urls for this resource), and adds new functions.
+      </p>
+      <pre>restFactory('Login', {
+  urlEntityName: 'login',
+  additionalFunctions: {
+    getUser: { url: "/user" },
+    logoff: { url: "/logoff", method: 'POST' },
+    login: {
+      method: 'POST'
     }
-  });</pre>
-        and link
-        <pre>&lt;a href="/#/organization/person/{{user.person.id}}"&gt;</pre>
-        after clicking there will be server request for view
-        <pre>/views/organization/person.html</pre>
-        Assuming that person.html contains
-        <pre>ng-controller="PersonController"</pre>
-        it may use person's id
-        <pre>var idPerson = $routeParams.idEntity;</pre>
-      </p>
-    </div>
-  </div>
+  }
+});</pre>
 
-
-  <div class="feature-section">
-    <div class="container">
-      <h2>Views configuration</h2>
-      <p>
-        You may define your views by providing <code>routeConfiguration</code> service.
-      </p>
+      <h4>Invocation examples</h4>
       <table class="table">
         <tr>
-          <td><code>routeConfiguration.rootPath</code></td>
-          <td>Defines base url for view definition lookup</td>
+          <th>Invocation</th>
+          <th>Method</th>
+          <th>Url</th>
+          <th>Request Body</th>
         </tr>
         <tr>
-          <td><code>routeConfiguration.extension</code></td>
-          <td>Defines view url extension. It will be concatenated to every view url searched.</td>
+          <td><code>Login.getUser([successFn], [errorFn])</code></td>
+          <td><code>GET</code></td>
+          <td><code>/api/login/user</code></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td><code>Login.logoff([successFn], [errorFn])</code></td>
+          <td><code>POST</code></td>
+          <td><code>/api/login/logoff</code></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td><code>Login.login({ username: 'doe', password: 'pass' }, [successFn], [errorFn])</code></td>
+          <td><code>GET</code></td>
+          <td><code>/api/login/user</code></td>
+          <td><code>{ username: 'doe', password: 'pass' }</code></td>
         </tr>
       </table>
     </div>
@@ -74,76 +143,51 @@
 
   <div class="feature-section">
     <div class="container">
-      <h2>How routing works</h2>
-      <p>
-        There are 4 default routing strategies matched in order as described below. Each basic view has to be placed in
-        directory. It cannot be subdirectory, or base directory. It enforces splitting views in directories. Standard
-        link looks like this: <code>&lt;a href="/#/organization/person/{{user.person.id}}"&gt;</code>. Here we have
-        <code>organization</code> directory in which <code>person</code> view file will be looked up.
-        <code>$routeParams.idEntity</code> parameter will contain value of <code>{{user.person.id}}</code>.
-      </p>
-
-      <h3>Route matches parameters</h3>
+      <h2>Configuration parameters</h2>
       <table class="table">
         <tr>
-          <td><code>:dir</code></td>
-          <td>Directory in views <code>rootPath</code> in which view is placed</td>
+          <td><code>parentName</code></td>
+          <td>If present, this entity represents other's entity child. So urls will not be like
+            <code>/api/urlEntityName/{{idEntity}}</code>, but
+            <code>/api/parentName/{{idParentEntity}}/urlEntityName/{{idEntity}}</code>.
+          </td>
         </tr>
         <tr>
-          <td><code>:idView</code></td>
-          <td>Name of the view. It will be concatenated with <code>extension</code> before sending request</td>
+          <td><code>urlEntityName</code></td>
+          <td>
+            Normally urlEntityName is automatically builded by concatenating passed module name and 's'. But sometimes
+            you don't want this convention. Then by setting <code>urlEntityName</code> you may change default
+            behaviour.
+          </td>
         </tr>
         <tr>
-          <td><code>:idEntity</code></td>
-          <td>Value that will be accessible to controller by <code>$routeParams.idEntity</code></td>
-        </tr>
-        <tr>
-          <td><code>:parent</code></td>
-          <td>Parent entity name.</td>
-        </tr>
-        <tr>
-          <td><code>:idParentEntity</code></td>
-          <td>Value that will be accessible to controller by <code>$routeParams.idParentEntity</code></td>
+          <td><code>additionalFunctions</code></td>
+          <td>
+            Parameter containing additional functions for resource construction.
+          </td>
         </tr>
       </table>
-
-      <h3>Route matches</h3>
-      <ol>
-        <li><code>/:dir/:parent/:idParentEntity/:idView/:idEntity</code></li>
-        <li><code>/:dir/:parent/:idParentEntity/:idView</code></li>
-        <li><code>/:dir/:idView/:idEntity</code></li>
-        <li><code>/:dir/:idView</code></li>
-      </ol>
     </div>
   </div>
 
 
   <div class="feature-section">
     <div class="container">
-      <h2>Automatic errors handling</h2>
+      <h2>How resources work</h2>
       <p>
-        Module provides interceptor for handling error status codes:
-        <table class="table">
-          <tr>
-            <td>401</td>
-            <td>unauthorized</td>
-            <td><code>$rootScope.loggedIn</code> property is set to <code>false</code> when unauthorized status is
-              returned</td>
-          </tr>
-          <tr>
-            <td>403</td>
-            <td>forbidden</td>
-            <td>is logged if possible</td>
-          </tr>
-          <tr>
-            <td>500</td>
-            <td>internal server error</td>
-            <td>shows information in toastr panel</td>
-          </tr>
-        </table>
+        This simple module implements a couple of conventions for resource processing.
       </p>
+      <ul>
+        <li>All methods have id[name] parameter. So when building factory by <code>restFactory("Person");</code>, get
+        method has idPerson parameter for setting id.</li>
+        <li>Processes first level and child level entities. It is not possible to process child's child.</li>
+        <li>Adds <code>update()</code> method that is not present in AngularJs.</li>
+        <li>Adds <code>isNew()</code> method, that returns <code>true</code> if entity has id. That is a marker of
+        db state.</li>
+      </ul>
     </div>
   </div>
+
 
   <div class="feature-section">
     <div class="container">
@@ -163,11 +207,8 @@
   </footer>
 
 	<script type="text/javascript" src="bower_components/angular/angular.min.js"></script>
-	<script type="text/javascript" src="bower_components/angular-route/angular-route.min.js"></script>
-	<script type="text/javascript" src="bower_components/angular-sanitize/angular-sanitize.min.js"></script>
-	<script type="text/javascript" src="bower_components/angular-touch/angular-touch.min.js"></script>
-	<script type="text/javascript" src="bower_components/angular-animate/angular-animate.min.js"></script>
-	
+	<script type="text/javascript" src="bower_components/angular-resource/angular-resource.min.js"></script>
+
 	<script type="text/javascript" src="ng-module.js"></script>
 	<!--<script type="text/javascript" src="ng-module.min.js"></script>-->
 	
