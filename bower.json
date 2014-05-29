@@ -7,7 +7,7 @@
 	"description": "Demo",
 	"keywords": [
 	],
-	"license": "MIT",
+	"license": "Apache 2.0 License",
 	"ignore": [
 		"**/.*",
 		"node_modules",
@@ -16,10 +16,9 @@
 		"tests"
 	],
 	"dependencies": {
-		"angular":"~1.2.0",
-		"angular-sanitize":"~1.2.0",
-		"angular-route":"~1.2.0",
-		"angular-touch":"~1.2.0"
+		"angular":">=1.2.0",
+		"angular-resource":">=1.2.0",
+    "bootstrap": "3.1.1"
 	},
 	"devDependencies": {
 	}
