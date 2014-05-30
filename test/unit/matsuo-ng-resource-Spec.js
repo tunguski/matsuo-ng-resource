@@ -21,13 +21,25 @@ beforeEach(inject(function ($httpBackend, $rootScope, $compile, Dog) {
 
 
 describe("Matsuo Resources", function () {
-  it("Rest factory", function () {
+  it("Basic crud operations work", function () {
+    var dog;
 
     http.expectGET('/testPrefix/api/dogs/1').respond('{}');
-    _Dog.get({ idDog: 1 });
-
+    _Dog.get({ idDog: 1 }, function (_dog) {
+      dog = _dog;
+    });
     http.flush();
 
-    //expect(route).not.toBeNull();
+    dog.name = 'fluffy';
+    http.expectPOST('/testPrefix/api/dogs').respond('');
+    dog.$save();
+    http.flush();
+  });
+
+  it("list by ids work", function () {
+    http.expectGET('/testPrefix/api/dogs/list/byIds?ids=1&ids=2&ids=3').respond('[]');
+    _Dog.listByIds({ ids: [1,2,3] });
+    http.flush();
   });
 });
+

@@ -31,8 +31,8 @@ function buildRestFactory(module, baseUrl) {
 
       url = url + (options.urlEntityName ? options.urlEntityName : _.uncapitalize(name) + 's');
 
-      function filterAndStringify(data) {
-        return JSON.stringify(filterRequestData(data));
+      var filterAndStringify = function(data) {
+        return JSON.stringify(_.filterRequestData(data));
       }
 
       var functions = {
