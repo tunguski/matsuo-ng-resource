@@ -22,14 +22,14 @@ function buildRestFactory(module, baseUrl) {
       var url = (baseUrl || '') + '/api/';
 
       if (options.parentName) {
-        var parentLowerName = options.parentName.decapitalize();
+        var parentLowerName = _.uncapitalize(options.parentName);
         var idParentProperty = "id" + options.parentName;
 
         params[idParentProperty] = '@' + idParentProperty;
         url = url + parentLowerName + 's/:' + idParentProperty + '/';
       }
 
-      url = url + (options.urlEntityName ? options.urlEntityName : name.decapitalize() + 's');
+      url = url + (options.urlEntityName ? options.urlEntityName : _.uncapitalize(name) + 's');
 
       function filterAndStringify(data) {
         return JSON.stringify(filterRequestData(data));

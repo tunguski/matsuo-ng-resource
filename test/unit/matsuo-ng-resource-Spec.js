@@ -4,26 +4,27 @@
 
 var testModule = angular.module('test.mt.resource', ['ngResource']);
 
-var restFactory = buildRestFactory(testModule, '/testPrefix/');
+var restFactory = buildRestFactory(testModule, '/testPrefix');
 restFactory('Dog');
 
 beforeEach(module('test.mt.resource'));
 
-var rootScope, scope, http, compile, Dog;
+var rootScope, scope, http, compile, _Dog;
 
 beforeEach(inject(function ($httpBackend, $rootScope, $compile, Dog) {
   http = $httpBackend;
   rootScope = $rootScope;
   scope = $rootScope.$new();
   compile = $compile;
+  _Dog = Dog;
 }));
 
 
 describe("Matsuo Resources", function () {
   it("Rest factory", function () {
 
-    http.expectPOST('/testPrefix/api/dogs/1').respond('{}');
-    Dog.get({ idDog: 1 });
+    http.expectGET('/testPrefix/api/dogs/1').respond('{}');
+    _Dog.get({ idDog: 1 });
 
     http.flush();
 
