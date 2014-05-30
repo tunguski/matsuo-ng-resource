@@ -1,27 +1,29 @@
 {
-	"name": "matsuo-ng-resource",
-	"version": "0.1.0",
-	"authors": [
-		"Marek Romanowski <marek.romanowski@gmail.com>"
-	],
-	"description": "AngularJs Resources Improved",
-	"keywords": [
-		"AngularJs",
-		"Resources",
-		"Improved"
-	],
-	"license": "MIT",
-	"ignore": [
-		"**/.*",
-		"node_modules",
-		"bower_components",
-		"test",
-		"tests",
+  "name": "matsuo-ng-resource",
+  "version": "0.1.0",
+  "authors": [
+    "Marek Romanowski <marek.romanowski@gmail.com>"
+  ],
+  "description": "AngularJs Resources Improved",
+  "keywords": [
+    "AngularJs",
+    "Resources",
+    "Improved"
+  ],
+  "license": "Apache 2.0 License",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests",
     "CHANGELOG.md"
-	],
-	"dependencies": {
-		"angular":"~1.2.0"
-	},
-	"devDependencies": {
-	}
+  ],
+  "dependencies": {
+    "angular": "~1.2.0",
+    "angular-resource": "~1.2.16"
+  },
+  "devDependencies": {
+    "angular-mocks": "~1.2.16"
+  }
 }
