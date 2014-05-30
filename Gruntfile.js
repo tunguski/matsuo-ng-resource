@@ -74,17 +74,19 @@ module.exports = function(grunt) {
 						src: ['**.js']
 					}
 				}
-			},
-			uglify: {
-				options: {
-					mangle: false
-				},
-				build: {
-					files:  {},
-					src:    'ng-resource.js',
-					dest:   'ng-resource.min.js'
-				}
-			}/*,
+			}
+//      ,
+//			uglify: {
+//				options: {
+//					mangle: false
+//				},
+//				build: {
+//					files:  {},
+//					src:    'ng-resource.js',
+//					dest:   'ng-resource.min.js'
+//				}
+//			}
+			/*,
 			karma: {
 				unit: {
 					configFile: publicPathRelativeRoot+'config/karma.conf.js',
@@ -100,7 +102,10 @@ module.exports = function(grunt) {
 		@toc 6.
 		*/
 		// Default task(s).
-		grunt.registerTask('default', ['jshint:beforeconcatQ', 'uglify:build']);
+		grunt.registerTask('default', [
+      'jshint:beforeconcatQ'
+      //, 'uglify:build'
+    ]);
 	
 	}
 	init({});		//initialize here for defaults (init may be called again later within a task)

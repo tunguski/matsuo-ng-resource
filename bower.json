@@ -15,10 +15,9 @@
     "tests"
   ],
   "dependencies": {
-    "angular": ">=1.2.0",
-    "angular-resource": ">=1.2.0",
     "bootstrap": "3.1.1",
-    "highlightjs": "~8.0.0"
+    "highlightjs": "~8.0.0",
+    "jquery": "1.11.1"
   },
   "devDependencies": {}
 }
