@@ -6,6 +6,12 @@ var testModule = angular.module('test.mt.resource', ['ngResource']);
 
 var restFactory = buildRestFactory(testModule, '/testPrefix');
 restFactory('Dog');
+restFactory('Cat', {
+  parentName: 'Animal',
+  additionalFunctions: {
+    eat: function () {}
+  }
+});
 
 beforeEach(module('test.mt.resource'));
 
