@@ -9,20 +9,23 @@ restFactory('Dog');
 restFactory('Cat', {
   parentName: 'Animal',
   additionalFunctions: {
-    eat: function () {}
+    eat: {
+      url: '/eat'
+    }
   }
 });
 
 beforeEach(module('test.mt.resource'));
 
-var rootScope, scope, http, compile, _Dog;
+var rootScope, scope, http, compile, Dog, Cat;
 
-beforeEach(inject(function ($httpBackend, $rootScope, $compile, Dog) {
+beforeEach(inject(function ($httpBackend, $rootScope, $compile, _Dog_, _Cat_) {
   http = $httpBackend;
   rootScope = $rootScope;
   scope = $rootScope.$new();
   compile = $compile;
-  _Dog = Dog;
+  Dog = _Dog_;
+  Cat = _Cat_;
 }));
 
 
@@ -31,8 +34,8 @@ describe("Matsuo Resources", function () {
     var dog;
 
     http.expectGET('/testPrefix/api/dogs/1').respond('{}');
-    _Dog.get({ idDog: 1 }, function (_dog) {
-      dog = _dog;
+    Dog.get({ idDog: 1 }, function (Dog) {
+      dog = Dog;
     });
     http.flush();
 
@@ -44,8 +47,19 @@ describe("Matsuo Resources", function () {
 
   it("list by ids work", function () {
     http.expectGET('/testPrefix/api/dogs/list/byIds?ids=1&ids=2&ids=3').respond('[]');
-    _Dog.listByIds({ ids: [1,2,3] });
+    Dog.listByIds({ ids: [1,2,3] });
     http.flush();
+  });
+
+  it("resource with parent and additional function work", function () {
+    http.expectGET('/testPrefix/api/animals/cats/eat').respond('{}');
+    Cat.eat();
+    http.flush();
+  });
+
+  it("isNew work", function () {
+    expect(new Cat().isNew()).toBe(true);
+    expect(new Cat({ id: 1 }).isNew()).toBe(false);
   });
 });
 
