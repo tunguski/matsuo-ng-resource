@@ -2,18 +2,19 @@
 "use strict";
 
 
-var testModule = angular.module('test.mt.resource', ['ngResource']);
-
-var restFactory = buildRestFactory(testModule, '/testPrefix');
-restFactory('Dog');
-restFactory('Cat', {
-  parentName: 'Animal',
-  additionalFunctions: {
-    eat: {
-      url: '/eat'
-    }
-  }
-});
+var testModule = angular.module('test.mt.resource', ['mt.resource'])
+    .config(function (restFactoryProvider, mtResourceConfig) {
+      restFactoryProvider.define('Dog');
+      restFactoryProvider.define('Cat', {
+        parentName: 'Animal',
+        additionalFunctions: {
+          eat: {
+            url: '/eat'
+          }
+        }
+      });
+      mtResourceConfig.baseUrl = '/testPrefix'
+    });
 
 beforeEach(module('test.mt.resource'));
 
@@ -30,6 +31,7 @@ beforeEach(inject(function ($httpBackend, $rootScope, $compile, _Dog_, _Cat_) {
 
 
 describe("Matsuo Resources", function () {
+
   it("Basic crud operations work", function () {
     var dog;
 
