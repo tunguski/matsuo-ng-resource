@@ -17,6 +17,8 @@ angular.module('mt.resource', [ 'ngResource'])
      * - additionalFunctions - additional functions declared in factory object
      */
     .provider('restFactory', function (mtResourceConfig, $provide) {
+      var self = this;
+
       this.$get = function () { return ''; };
 
       this.define = function (/* moduleName, */name, options) {
@@ -66,6 +68,8 @@ angular.module('mt.resource', [ 'ngResource'])
               };
               return entity;
             });
+
+        return self;
       };
     })
 ;

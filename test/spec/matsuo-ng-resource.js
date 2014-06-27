@@ -4,15 +4,16 @@
 
 var testModule = angular.module('test.mt.resource', ['mt.resource'])
     .config(function (restFactoryProvider, mtResourceConfig) {
-      restFactoryProvider.define('Dog');
-      restFactoryProvider.define('Cat', {
-        parentName: 'Animal',
-        additionalFunctions: {
-          eat: {
-            url: '/eat'
-          }
-        }
-      });
+      restFactoryProvider
+          .define('Dog')
+          .define('Cat', {
+            parentName: 'Animal',
+            additionalFunctions: {
+              eat: {
+                url: '/eat'
+              }
+            }
+          });
       mtResourceConfig.baseUrl = '/testPrefix'
     });
 
