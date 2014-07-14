@@ -36,7 +36,7 @@ describe("Matsuo Resources", function () {
   it("Basic crud operations work", function () {
     var dog;
 
-    http.expectGET('/testPrefix/api/dogs/1').respond('{}');
+    http.expectGET('/testPrefix/api/dogs/1').respond({});
     Dog.get({ idDog: 1 }, function (Dog) {
       dog = Dog;
     });
@@ -49,13 +49,13 @@ describe("Matsuo Resources", function () {
   });
 
   it("list by ids work", function () {
-    http.expectGET('/testPrefix/api/dogs/list/byIds?ids=1&ids=2&ids=3').respond('[]');
+    http.expectGET('/testPrefix/api/dogs/list/byIds?ids=1&ids=2&ids=3').respond([]);
     Dog.listByIds({ ids: [1,2,3] });
     http.flush();
   });
 
   it("resource with parent and additional function work", function () {
-    http.expectGET('/testPrefix/api/animals/cats/eat').respond('{}');
+    http.expectGET('/testPrefix/api/animals/cats/eat').respond({});
     Cat.eat();
     http.flush();
   });
