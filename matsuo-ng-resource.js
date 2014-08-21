@@ -27,7 +27,7 @@ angular.module('mt.resource', [ 'ngResource'])
 
         // fixme: all rest resources are added to mt.resource module - should take moduleName into account
         $provide
-            .factory(name, function($resource) {
+            .factory(name, ['$resource', function($resource) {
               var params = {};
               params[idProperty] = '@' + idProperty;
               var url = (mtResourceConfig.baseUrl || '') + '/api/';
@@ -67,7 +67,7 @@ angular.module('mt.resource', [ 'ngResource'])
                 return (typeof (this.id) === 'undefined');
               };
               return entity;
-            });
+            }]);
 
         return self;
       };
