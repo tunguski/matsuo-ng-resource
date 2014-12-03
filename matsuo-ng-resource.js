@@ -28,8 +28,7 @@ angular.module('mt.resource', [ 'ngResource'])
         // fixme: all rest resources are added to mt.resource module - should take moduleName into account
         $provide
             .factory(name, ['$resource', function($resource) {
-              var params = {};
-              params[idProperty] = '@' + idProperty;
+              var params = angular.extend({ idProperty: '@' + idProperty }, options.paramDefaults);
               var url = (mtResourceConfig.baseUrl || '') + '/api/';
 
               if (options.parentName) {
