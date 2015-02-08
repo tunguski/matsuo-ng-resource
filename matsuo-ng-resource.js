@@ -19,6 +19,10 @@ angular.module('mt.resource', [ 'ngResource'])
     .provider('restFactory', function (mtResourceConfig, $provide) {
       var self = this;
 
+      function pluralize (noun) {
+        return (noun.lastIndexOf('es') === noun.length - 2) ? noun : noun + 's';
+      }
+
       this.$get = function () { return ''; };
 
       this.define = function (/* moduleName, */name, options) {
@@ -36,13 +40,13 @@ angular.module('mt.resource', [ 'ngResource'])
                 var idParentProperty = "id" + options.parentName;
 
                 params[idParentProperty] = '@' + idParentProperty;
-                url = url + parentLowerName + 's/:' + idParentProperty + '/';
+                url = url + pluralize(parentLowerName) + '/:' + idParentProperty + '/';
               }
 
-              url = url + (options.urlEntityName ? options.urlEntityName : _.uncapitalize(name) + 's');
+              url = url + (options.urlEntityName ? options.urlEntityName : pluralize(_.uncapitalize(name)));
 
               var filterAndStringify = function(data) {
-                return JSON.stringify(_.filterRequestData($.extend({}, data)));
+                return JSON.stringify(_.filterRequestData(angular.extend({}, data)));
               };
 
               var functions = {
