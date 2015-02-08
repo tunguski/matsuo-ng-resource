@@ -42,7 +42,7 @@ angular.module('mt.resource', [ 'ngResource'])
               url = url + (options.urlEntityName ? options.urlEntityName : _.uncapitalize(name) + 's');
 
               var filterAndStringify = function(data) {
-                return JSON.stringify(_.filterRequestData(data));
+                return JSON.stringify(_.filterRequestData($.extend({}, data)));
               };
 
               var functions = {
